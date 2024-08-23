@@ -21,45 +21,24 @@ export default function SuratScreen() {
   useEffect(() => {
     const fetchSurat = async () => {
       try {
-        const response = await fetch(
-          `https://api.myquran.com/v2/quran/surat/${id}`
-        );
+        setLoading(true);
+        const response = await fetch(`https://equran.id/api/v2/surat/${id}`);
         const data = await response.json();
 
         if (data.data) {
           setSurat(data.data);
+          setAyat(data.data.ayat);
         }
+
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching surat:", error);
+        setLoading(false);
       }
     };
 
     fetchSurat();
   }, [id]);
-
-  useEffect(() => {
-    const fetchAyat = async () => {
-      if (surat?.number_of_verses) {
-        try {
-          setLoading(true);
-          const responseAyat = await fetch(
-            `https://api.myquran.com/v2/quran/ayat/${id}/1-${surat.number_of_verses}`
-          );
-          const dataAyat = await responseAyat.json();
-
-          if (dataAyat.data) {
-            setAyat(dataAyat.data);
-            setLoading(false);
-          }
-        } catch (error) {
-          console.error("Error fetching ayat:", error);
-          setLoading(false);
-        }
-      }
-    };
-
-    fetchAyat();
-  }, [id, surat?.number_of_verses]);
 
   return (
     <>
@@ -92,11 +71,11 @@ export default function SuratScreen() {
                 style={styles.header}
                 resizeMode="cover"
               >
-                <Text style={styles.headerText}>{surat?.name_id}</Text>
-                <Text style={styles.headerArti}>{surat?.translation_id}</Text>
+                <Text style={styles.headerText}>{surat?.namaLatin}</Text>
+                <Text style={styles.headerArti}>{surat?.arti}</Text>
                 <View style={styles.divider} />
                 <Text style={styles.headerTempat}>
-                  {surat?.revelation_id} - {surat?.number_of_verses} Ayat
+                  {surat?.tempatTurun} - {surat?.jumlahAyat} Ayat
                 </Text>
 
                 <Text style={styles.headerArab}>
@@ -106,13 +85,13 @@ export default function SuratScreen() {
             </View>
             <View style={styles.containerAyat}>
               {ayat?.map((ayat: any) => (
-                <View style={styles.cardAyat} key={ayat?.ayah}>
+                <View style={styles.cardAyat} key={ayat?.nomorAyat}>
                   <View style={styles.number}>
-                    <Text style={styles.numberText}>{ayat?.ayah}</Text>
+                    <Text style={styles.numberText}>{ayat?.nomorAyat}</Text>
                   </View>
-                  <Text style={styles.Arab}>{ayat?.arab}</Text>
-                  <Text style={styles.Latin}>{ayat?.latin}</Text>
-                  <Text style={styles.Arti}>{ayat?.text}</Text>
+                  <Text style={styles.Arab}>{ayat?.teksArab}</Text>
+                  <Text style={styles.Latin}>{ayat?.teksLatin}</Text>
+                  <Text style={styles.Arti}>{ayat?.teksIndonesia}</Text>
                 </View>
               ))}
             </View>
