@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
 import {
@@ -95,7 +96,12 @@ export default function TabTwoScreen() {
               {searchSurat.length > 0 ? (
                 <>
                   {searchSurat.map((surat: any, index: number) => (
-                    <TouchableOpacity key={index}>
+                    <TouchableOpacity
+                      key={index}
+                      onPress={() =>
+                        router.push(`/surat/${surat?.number}` as any)
+                      }
+                    >
                       <View style={styles.cardSurat}>
                         <View
                           style={{
@@ -128,7 +134,12 @@ export default function TabTwoScreen() {
               ) : (
                 <>
                   {surats.map((surat: any, index: number) => (
-                    <TouchableOpacity key={index}>
+                    <TouchableOpacity
+                      key={index}
+                      onPress={() =>
+                        router.push(`/surat/${surat?.number}` as any)
+                      }
+                    >
                       <View style={styles.cardSurat}>
                         <View
                           style={{

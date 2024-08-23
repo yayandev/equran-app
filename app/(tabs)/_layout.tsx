@@ -1,8 +1,6 @@
 import { Tabs } from "expo-router";
 import React from "react";
 
-import { TabBarIcon } from "@/components/navigation/TabBarIcon";
-import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { FontAwesome5, FontAwesome6 } from "@expo/vector-icons";
 
@@ -12,7 +10,6 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
         headerShown: false,
         tabBarShowLabel: false,
         tabBarStyle: {
@@ -58,6 +55,21 @@ export default function TabLayout() {
               color={focused ? "#B121BF" : color}
             />
           ),
+        }}
+      />
+      {/* disabled */}
+      <Tabs.Screen
+        name="surat/[id]"
+        options={{
+          title: "Surat",
+          tabBarButton: () => null,
+        }}
+      />
+      <Tabs.Screen
+        name="doa/[id]"
+        options={{
+          title: "Surat",
+          tabBarButton: () => null,
         }}
       />
     </Tabs>

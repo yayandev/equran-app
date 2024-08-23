@@ -43,7 +43,6 @@ const getJadwal = async (kota: string, tgl: string) => {
 
   const dataJadwal = await getJadwal.json();
 
-  console.log(JSON.stringify(dataJadwal, null, 2));
   return dataJadwal?.data?.jadwal;
 };
 
@@ -61,7 +60,7 @@ export default function HomeScreen() {
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [time, setTime] = useState<string>("00:00");
   const [date, setDate] = useState<string>("Loading...");
-  const [jadwal, setJadwal] = useState<Jadwal>({} as Jadwal);
+  const [jadwal, setJadwal] = useState({} as Jadwal);
 
   useEffect(() => {
     (async () => {
