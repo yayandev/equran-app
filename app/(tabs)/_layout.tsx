@@ -1,9 +1,10 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
+import { Tabs } from "expo-router";
+import React from "react";
 
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { TabBarIcon } from "@/components/navigation/TabBarIcon";
+import { Colors } from "@/constants/Colors";
+import { useColorScheme } from "@/hooks/useColorScheme";
+import { FontAwesome5, FontAwesome6 } from "@expo/vector-icons";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -11,24 +12,51 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
         headerShown: false,
-      }}>
+        tabBarShowLabel: false,
+        tabBarStyle: {
+          height: 60,
+        },
+        tabBarHideOnKeyboard: true,
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
+          title: "Home",
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
+            <FontAwesome5
+              name="home"
+              size={24}
+              color={focused ? "#B121BF" : color}
+            />
           ),
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="quran"
         options={{
-          title: 'Explore',
+          title: "Quran",
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+            <FontAwesome5
+              name="book-reader"
+              size={24}
+              color={focused ? "#B121BF" : color}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="prayer"
+        options={{
+          title: "Prayer",
+          tabBarIcon: ({ color, focused }) => (
+            <FontAwesome6
+              name="person-praying"
+              size={24}
+              color={focused ? "#B121BF" : color}
+            />
           ),
         }}
       />
